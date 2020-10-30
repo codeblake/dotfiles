@@ -1,12 +1,10 @@
+#!/bin/bash
 # ██████╗  █████╗ ███████╗██╗  ██╗██████╗  ██████╗
 # ██╔══██╗██╔══██╗██╔════╝██║  ██║██╔══██╗██╔════╝
 # ██████╔╝███████║███████╗███████║██████╔╝██║
 # ██╔══██╗██╔══██║╚════██║██╔══██║██╔══██╗██║
 # ██████╔╝██║  ██║███████║██║  ██║██║  ██║╚██████╗
 # ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝
-#
-
-#!/bin/bash
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -46,4 +44,5 @@ alias exa="exa --group-directories-first"
 alias links='ls -al | grep "\->"'
 
 # Replacement aliases
-command -v exa 2> /dev/null || alias ls="exa --group-directories-first"
+command -v exa &> /dev/null || alias ls="exa --group-directories-first"
+
