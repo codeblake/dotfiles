@@ -28,7 +28,7 @@ col_red="\033[31m"
 
 # Prompt
 git_branch() {
-	branch="$(git branch 2> /dev/null | sed -e 's/* \(.*\)/\1/')"
+	branch="$(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/\1/p')"
 	[ ! "$branch" == "" ] && echo -e " on ${col_green}${branch}${col_reset}"
 }
 
@@ -44,4 +44,7 @@ alias build="sudo make clean install"
 alias mkd="mkdir -pv"
 alias exa="exa --group-directories-first"
 alias links='ls -al | grep "\->"'
-
+alias gs="git status"
+alias gd="git diff"
+alias gl="git log"
+alias gc="git commit"
