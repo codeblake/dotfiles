@@ -4,3 +4,4 @@
 
 export PATH="${PATH}:${HOME}/repositories/scripts"
 export EDITOR=emacs
+export VISUAL=emacs
