@@ -1,0 +1,29 @@
+# Include nano-syntax-highlighting
+include "/usr/share/nano/*.nanorc"
+
+# Settings
+set tabsize 4
+# set smooth
+set autoindent
+# set morespace
+set linenumbers
+set casesensitive
+set emptyline
+set historylog
+set cutfromcursor
+set indicator
+set breaklonglines
+# set minibar
+set mouse
+set positionlog
+set speller "aspell -x -c"
+
+# Theme
+set titlecolor bold,white,black
+set numbercolor grey
+set statuscolor bold,cyan
+set errorcolor bold,red
+set keycolor bold,white,black
+set functioncolor white
+set scrollercolor grey
+set promptcolor bold,white,black
