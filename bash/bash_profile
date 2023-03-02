@@ -1,0 +1,7 @@
+# Source .bashrc
+[[ -f ~/.bashrc ]] && source ~/.bashrc
+
+# Set environment variables
+export PATH="${PATH}:${HOME}/repositories/scripts"
+export EDITOR=emacs
+export VISUAL=emacs
