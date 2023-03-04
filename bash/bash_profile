@@ -1,7 +1,10 @@
+# -*- mode: shell-script; -*-
+
 # Source .bashrc
 [[ -f ~/.bashrc ]] && source ~/.bashrc
 
 # Set environment variables
-export PATH="${PATH}:${HOME}/repositories/scripts"
+SCRIPTS="${HOME}/repositories/scripts"
+export PATH="${SCRIPTS}:${PATH}"
 export EDITOR=emacs
 export VISUAL=emacs
