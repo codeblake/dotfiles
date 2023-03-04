@@ -10,6 +10,8 @@
 # Input info:			man 5 sway-input
 # Get inputs:			swaymsg -t get_inputs
 # Get outputs:		swaymsg -t get_outputs
+#
+# REQUIRED PACKAGES: foot wofi waybar light shotman slurp swayidle swaylock
 
 # SETUP
 ## Set min brightness & restore previous amount
@@ -28,18 +30,23 @@ set $up p
 set $down n
 set $left b
 set $right f
-set $exitcmd swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
-
-## Volume commands
-set $incVolumeCmd pactl set-sink-volume @DEFAULT_SINK@ +5%
-set $decVolumeCmd pactl set-sink-volume @DEFAULT_SINK@ -5%
-set $muteVolumeCmd pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-## Brightness commands
-set $incLightCmd light -TO 1.5
-set $decLightCmd light -TO 0.5
-set $incKbdLightCmd $incLightCmd -s sysfs/leds/smc::kbd_backlight
-set $decKbdLightCmd $decLightCmd -s sysfs/leds/smc::kbd_backlight
+## COMMANDS
+### Volume commands
+set $incVolume pactl set-sink-volume @DEFAULT_SINK@ +5%
+set $decVolume pactl set-sink-volume @DEFAULT_SINK@ -5%
+set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle
+### Brightness commands
+set $incLight light -TO 1.5
+set $decLight light -TO 0.5
+set $incKbdLight $incLight -s sysfs/leds/smc::kbd_backlight
+set $decKbdLight $decLight -s sysfs/leds/smc::kbd_backlight
+### Exit commands
+set $exitSway swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
+set $powerOff swaynag -t warning -m 'Shutdown computer?' -B 'Yes' 'halt'
+### Screenshot commands
+set $scrnshotWin exec shotman --capture=window
+set $scrnshotSel exec shotman --capture=region
+set $scrnshotAll exec shotman --capture=output
 
 # FRAME
 default_border pixel
@@ -63,23 +70,26 @@ output * background $wallpaper fill
 ## Basics
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
-bindsym $mod+space exec $menu
+bindsym $mod+Space exec $menu
 bindsym $mod+Shift+r reload
-bindsym $mod+Shift+e exec $exitcmd
-bindsym $mod+Escape exec $exitcmd
+bindsym $mod+Shift+e exec $exitSway
+bindsym $mod+Escape exec $exitSway
 
 ## Screen Brightness
-bindsym XF86MonBrightnessUp   exec $incLightCmd
-bindsym XF86MonBrightnessDown exec $decLightCmd
+bindsym XF86MonBrightnessUp   exec $incLight
+bindsym XF86MonBrightnessDown exec $decLight
 
 ## Keyboard Brightness
-bindsym XF86KbdBrightnessUp   exec $incKbdLightCmd
-bindsym XF86KbdBrightnessDown exec $decKbdLightCmd
+bindsym XF86KbdBrightnessUp   exec $incKbdLight
+bindsym XF86KbdBrightnessDown exec $decKbdLight
 
 ## Volume
-bindsym XF86AudioMute         exec $muteVolumeCmd
-bindsym XF86AudioRaiseVolume  exec $incVolumeCmd
-bindsym XF86AudioLowerVolume  exec $decVolumeCmd
+bindsym XF86AudioMute         exec mute
+bindsym XF86AudioRaiseVolume  exec $incVolume
+bindsym XF86AudioLowerVolume  exec $decVolume
+
+## Power Button
+bindsym XF86PowerOff exec $powerOff
 
 ## WINDOW
 ### Select a window
@@ -157,15 +167,16 @@ mode "resize" {
 		bindsym Escape mode "default"
 }
 
+### Screenshot
+bindsym $mod+y       exec $scrnshotWin
+bindsym $mod+Shift+y exec $scrnshotSel
+bindsym $mod+Ctrl+y  exec $scrnshotAll
+
 ### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
+exec swayidle -w \
+		 timeout 300 'swaylock -f -c 000000' \
+		 timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+		 before-sleep 'swaylock -f -c 000000'
