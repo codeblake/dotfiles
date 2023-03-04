@@ -33,6 +33,10 @@ seat seat0 hide_cursor 5000
 ## Set Swaybar
 bar swaybar_command waybar
 
+## ASSIGNMENTS
+## get running app ids: swaymsg -t get_tree | grep app_id
+assign [app_id="FreeTube"] workspace number 3
+
 # VARIABLES
 ## General
 set $mod Mod4
