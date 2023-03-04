@@ -11,15 +11,26 @@
 # Get inputs:			swaymsg -t get_inputs
 # Get outputs:		swaymsg -t get_outputs
 #
-# REQUIRED PACKAGES: foot wofi waybar light swayidle swaylock shotman slurp
+# REQUIRED PACKAGES:
+# foot wofi waybar light swayidle swaylock shotman slurp gammastep
 
 # SETUP
 ## Set min brightness & restore previous amount
 exec light -NI 1
 
-# APPLICATIONS
-set $term foot
-set $menu wofi
+## Set color temperature
+exec gammastep
+
+## Set idle/lock timer
+exec swayidle -w \
+				 timeout 300 'swaylock -fc 000000'\
+				 timeout 600 'swaymsg "output * power off"' \
+				 resume 'swaymsg "output * power on"' \
+				 before-sleep 'swaylock -f -c 000000'
+## Hide mouse after x milliseconds
+seat seat0 hide_cursor 5000
+
+## Set Swaybar
 bar swaybar_command waybar
 
 # VARIABLES
@@ -30,20 +41,28 @@ set $up p
 set $down n
 set $left b
 set $right f
-## COMMANDS
-### Volume commands
+
+# COMMANDS
+## Applications
+set $term foot
+set $menu wofi
+
+## Volume commands
 set $incVolume pactl set-sink-volume @DEFAULT_SINK@ +5%
 set $decVolume pactl set-sink-volume @DEFAULT_SINK@ -5%
 set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle
-### Brightness commands
+
+## Brightness commands
 set $incLight light -TO 1.5
 set $decLight light -TO 0.5
 set $incKbdLight $incLight -s sysfs/leds/smc::kbd_backlight
 set $decKbdLight $decLight -s sysfs/leds/smc::kbd_backlight
-### Exit commands
+
+## Exit commands
 set $exitSway swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
 set $powerOff swaynag -t warning -m 'Shutdown computer?' -B 'Yes' 'halt'
-### Screenshot commands
+
+## Screenshot commands
 set $scrnshotWin exec shotman --capture=window
 set $scrnshotSel exec shotman --capture=region
 set $scrnshotAll exec shotman --capture=output
@@ -171,12 +190,3 @@ mode "resize" {
 bindsym $mod+y       exec $scrnshotWin
 bindsym $mod+Shift+y exec $scrnshotSel
 bindsym $mod+Ctrl+y  exec $scrnshotAll
-
-### Idle configuration
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-exec swayidle -w \
-		 timeout 300 'swaylock -f -c 000000' \
-		 timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-		 before-sleep 'swaylock -f -c 000000'
