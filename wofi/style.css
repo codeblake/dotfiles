@@ -1,0 +1,46 @@
+* {
+		font-family: "Hack", monospace;
+}
+
+window {
+		background-color: #3B4252;
+}
+
+#input {
+		margin: 5px;
+		border-radius: 0px;
+		border-color: rgba(150,205,255,0.5);
+		background-color: #3B4252;
+		color: white;
+}
+
+#inner-box {
+		background-color: #383C4A;
+}
+
+#outer-box {
+		margin: 2px;
+		padding: 5px;
+		background-color: #383C4A;
+}
+
+#scroll {
+		margin: 5px;
+}
+
+#text {
+		padding: 5px;
+		color: white;
+}
+
+#entry:nth-child(even){
+		background-color: #404552;
+}
+
+#entry:selected {
+		background-color: rgba(150,205,255,0.5);
+}
+
+#text:selected {
+		background: transparent;
+}
