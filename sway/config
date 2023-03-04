@@ -11,15 +11,15 @@
 # Get inputs:			swaymsg -t get_inputs
 # Get outputs:		swaymsg -t get_outputs
 #
-# REQUIRED PACKAGES: foot wofi waybar light shotman slurp swayidle swaylock
+# REQUIRED PACKAGES: foot wofi waybar light swayidle swaylock shotman slurp
 
 # SETUP
 ## Set min brightness & restore previous amount
-exec light -NI 5
+exec light -NI 1
 
 # APPLICATIONS
 set $term foot
-set $menu wofi --show run
+set $menu wofi
 bar swaybar_command waybar
 
 # VARIABLES
