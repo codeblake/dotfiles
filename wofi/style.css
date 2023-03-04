@@ -1,27 +1,29 @@
+@define-color fg-color rgba(150,190,200,0.8);
+@define-color bg-color #3B4252;
+@define-color text-color white;
+
 * {
 		font-family: "Hack", monospace;
 }
 
 window {
-		background-color: #3B4252;
+		background-color: @main-color;
 }
 
 #input {
 		margin: 5px;
+		padding: 0 10px;
 		border-radius: 0px;
-		border-color: rgba(150,205,255,0.5);
-		background-color: #3B4252;
-		color: white;
-}
-
-#inner-box {
-		background-color: #383C4A;
+		border-color: @fg-color;
+		background-color: transparent;
+		color: @text-color;
 }
 
 #outer-box {
 		margin: 2px;
 		padding: 5px;
-		background-color: #383C4A;
+		background-color: @bg-color;
+		border: 1px solid @fg-color;
 }
 
 #scroll {
@@ -30,17 +32,26 @@ window {
 
 #text {
 		padding: 5px;
-		color: white;
+		color: @text-color;
 }
 
-#entry:nth-child(even){
-		background-color: #404552;
+#text:not(:selected){
+		opacity: 0.8;
 }
 
-#entry:selected {
-		background-color: rgba(150,205,255,0.5);
+#img:not(:selected) {
+		opacity: 0.6;
 }
 
 #text:selected {
-		background: transparent;
+		font-weight: bold;
+		color: @text-color;
+}
+
+#entry {
+		margin: 5px 0;
+}
+
+#entry:selected {
+		background-color: @fg-color;
 }

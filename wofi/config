@@ -1,0 +1,31 @@
+# __        __     __ _    ____             __ _
+# \ \      / /__  / _(_)  / ___|___  _ __  / _(_) __ _
+#  \ \ /\ / / _ \| |_| | | |   / _ \| '_ \| |_| |/ _` |
+#   \ V  V / (_) |  _| | | |__| (_) | | | |  _| | (_| |
+#    \_/\_/ \___/|_| |_|  \____\___/|_| |_|_| |_|\__, |
+#                                                |___/
+# Manual (config): man 5 wofi
+# Manual (keys): man wofi-keys
+
+# Options
+mode=drun
+allow_images=true
+insensitive=true
+no_actions=true
+run-always_parse_args=true
+dynamic_lines=true
+
+# Keys
+key_up=Control_L-p
+key_down=Control_L-n
+key_pgup=Control_L-u
+key_pgdn=Control_L-d
+key_hide_search=Control_L-h
+
+# Frame
+prompt=Search
+location=top
+lines=5
+width=500
+height=220
+yoffset=310
