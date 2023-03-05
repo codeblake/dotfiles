@@ -13,8 +13,8 @@
 "tooltip": true,
 "restart-interval": 3600,
 "exec": "~/.config/waybar/scripts/pacman_updates",
-"exec-if": "pgrep checkupdates || (which checkupdates && ping -c 1 swaywm.org)",
-"on-click-right": "foot -e sudo pacman -Syu ; pkill -SIGRTMIN+8 waybar",
+"exec-if": "pgrep checkupdates || (which checkupdates && ping -c 3 swaywm.org)",
+"on-click-right": "foot -a pkgupdate -e sudo pacman -Syu ; pkill -SIGRTMIN+8 waybar",
 "signal": 8
 },
 
@@ -40,7 +40,7 @@
 "format-ethernet": "{ipaddr}/{cidr} ",
 "format-disconnected": "Offline",
 "tooltip-format": "{ifname} via {gwaddr} ",
-"tooltip-format-wifi": "ID:\t\t\t\t{essid}\nStrength:\t\t{signalStrength}% ({signaldBm}dBm)\nInterface:\t\t{ifname}\nFrequency:\t\t{frequency}MHz\nBytes Down:\t{bandwidthDownBytes}\nBytes Up:\t\t{bandwidthUpBytes}",
+"tooltip-format-wifi": "ID:\t\t\t{essid}\nStrength:\t\t{signalStrength}% ({signaldBm}dBm)\nInterface:\t\t{ifname}\nFrequency:\t{frequency}MHz\nBytes Down:\t{bandwidthDownBytes}\nBytes Up:\t\t{bandwidthUpBytes}",
 "tooltip-format-ethernet": "{ifname} ",
 "tooltip-format-disconnected": "Disconnected",
 "max-length": 50,
