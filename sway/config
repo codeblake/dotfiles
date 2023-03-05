@@ -21,6 +21,7 @@ exec light -N 5 && light -I
 # PROCESSES
 ## Set color temperature
 exec gammastep
+bindsym Mod4+l exec pkill gammastep || gammastep
 
 ## Enable notifications
 exec mako
@@ -67,8 +68,8 @@ set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle
 ## Brightness commands
 set $incLight light -A 5 && light -O
 set $decLight light -U 5 && light -O
-set $incKbdLight light -A 5 -s sysfs/leds/smc::kbd_backlight
-set $decKbdLight light -U 5 -s sysfs/leds/smc::kbd_backlight
+set $incKbdLight light -A 5 -s sysfs/leds/smc::kbd_backlight && light -O
+set $decKbdLight light -U 5 -s sysfs/leds/smc::kbd_backlight && light -O
 
 ## Exit commands
 set $exitSway swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
@@ -140,9 +141,6 @@ bindsym $mod+$right focus right
 ### Select multiple windows
 bindsym $mod+a focus parent
 
-### Toggle focus between tiling & floating area
-bindsym $mod+l focus mode_toggle
-
 ### Shift window in current workspce
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$down move down
@@ -184,7 +182,12 @@ bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+w layout toggle split
 bindsym $mod+m fullscreen
+
+### Floating
 bindsym $mod+Tab floating toggle
+
+### Toggle focus between tiling & floating area
+bindsym $mod+Control+Tab focus mode_toggle
 
 ### Sticky window (when floating)
 bindsym $mod+Shift+s sticky toggle
