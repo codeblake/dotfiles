@@ -12,7 +12,7 @@
 # Get outputs:		swaymsg -t get_outputs
 #
 # REQUIRED PACKAGES:
-# foot wofi waybar light swayidle swaylock shotman slurp gammastep mako
+# foot wofi waybar light swayidle swaylock shotman slurp gammastep mako autotiling-rs
 
 # SETUP
 ## Set min brightness & restore previous amount
@@ -24,6 +24,9 @@ exec gammastep
 
 ## Enable notifications
 exec mako
+
+## Enable auto tiling
+exec autotiling-rs
 
 ## Set idle/lock timer
 exec swayidle -w \
@@ -78,8 +81,10 @@ set $scrnshotAll exec shotman --capture=output
 
 # FRAME
 default_border pixel
-gaps inner 20
-gaps outer 20
+gaps inner 30
+gaps horizontal 40
+gaps bottom 60
+gaps top 20
 
 # MOUSE
 ## Hide mouse after x milliseconds
@@ -189,7 +194,7 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 ### Resizing
-bindsym $mod+r mode "resize"
+bindsym $mod+x mode "resize"
 mode "resize" {
 		# Resize window
 		bindsym Left resize shrink width 10px
@@ -203,5 +208,5 @@ mode "resize" {
 
 ### Screenshot
 bindsym $mod+y       exec $scrnshotWin
-bindsym $mod+Shift+y exec $scrnshotSel
+bindsym $mod+r			 exec $scrnshotSel
 bindsym $mod+Ctrl+y  exec $scrnshotAll
