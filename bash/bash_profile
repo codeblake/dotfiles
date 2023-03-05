@@ -6,5 +6,5 @@
 # Set environment variables
 SCRIPTS="${HOME}/repositories/scripts"
 export PATH="${SCRIPTS}:${PATH}"
-export EDITOR=emacs
-export VISUAL=emacs
+export EDITOR=nano
+export VISUAL=nano
