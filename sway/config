@@ -12,14 +12,18 @@
 # Get outputs:		swaymsg -t get_outputs
 #
 # REQUIRED PACKAGES:
-# foot wofi waybar light swayidle swaylock shotman slurp gammastep
+# foot wofi waybar light swayidle swaylock shotman slurp gammastep mako
 
 # SETUP
 ## Set min brightness & restore previous amount
 exec light -N 5 && light -I
 
+# PROCESSES
 ## Set color temperature
 exec gammastep
+
+## Enable notifications
+exec mako
 
 ## Set idle/lock timer
 exec swayidle -w \
@@ -36,6 +40,7 @@ bar swaybar_command waybar
 assign [app_id="FreeTube"] workspace number 3
 for_window [app_id="iwgtk"] floating enable
 for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="pkgupdate"] floating enable
 
 # VARIABLES
 ## General
