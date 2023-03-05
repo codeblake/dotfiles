@@ -8,5 +8,5 @@ if [ $? -eq 1 ]; then
 fi
 count=$(echo "${output}" | wc -l)
 pkgnames=$(echo "${output}" | awk '{print$1}')
-[ "${count}" -gt 0 ] && notify-send "Pacman" "${count} package updates available" -t 10000
-echo "{\"text\":\""${count}"\",\"tooltip\":\""${pkgnames}"\"}"
+[ "${count}" -gt 0 ] && notify-send "Pacman" "${count} package updates available"
+echo "{\"text\":\""${count}"\",\"alt\":\""${pkgnames}"\",\"tooltip\":\""${pkgnames}"\"}"
