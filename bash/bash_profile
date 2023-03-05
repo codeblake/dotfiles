@@ -4,7 +4,13 @@
 [[ -f ~/.bashrc ]] && source ~/.bashrc
 
 # Set environment variables
-SCRIPTS="${HOME}/repositories/scripts"
-export PATH="${SCRIPTS}:${PATH}"
+wofiscripts="${HOME}/.config/wofi/scripts"
+scripts="${HOME}/repositories/scripts:${wofiscripts}"
+export PATH="${scripts}:${PATH}"
 export EDITOR=nano
 export VISUAL=nano
+
+# Run window manager
+if [ "$(tty)" = "/dev/tty1" ]; then
+		dbus-run-session sway
+fi
