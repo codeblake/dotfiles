@@ -16,7 +16,7 @@
 
 # SETUP
 ## Set min brightness & restore previous amount
-exec light -NI 1
+exec light -N 5 && light -I
 
 ## Set color temperature
 exec gammastep
@@ -27,15 +27,15 @@ exec swayidle -w \
 				 timeout 600 'swaymsg "output * power off"' \
 				 resume 'swaymsg "output * power on"' \
 				 before-sleep 'swaylock -f -c 000000'
-## Hide mouse after x milliseconds
-seat seat0 hide_cursor 5000
 
 ## Set Swaybar
 bar swaybar_command waybar
 
-## ASSIGNMENTS
+## APP WINDOW
 ## get running app ids: swaymsg -t get_tree | grep app_id
 assign [app_id="FreeTube"] workspace number 3
+for_window [app_id="iwgtk"] floating enable
+for_window [app_id="pavucontrol"] floating enable
 
 # VARIABLES
 ## General
@@ -57,10 +57,10 @@ set $decVolume pactl set-sink-volume @DEFAULT_SINK@ -5%
 set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 ## Brightness commands
-set $incLight light -TO 1.5
-set $decLight light -TO 0.5
-set $incKbdLight $incLight -s sysfs/leds/smc::kbd_backlight
-set $decKbdLight $decLight -s sysfs/leds/smc::kbd_backlight
+set $incLight light -A 5 && light -O
+set $decLight light -U 5 && light -O
+set $incKbdLight light -A 5 -s sysfs/leds/smc::kbd_backlight
+set $decKbdLight light -U 5 -s sysfs/leds/smc::kbd_backlight
 
 ## Exit commands
 set $exitSway swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
@@ -76,17 +76,22 @@ default_border pixel
 gaps inner 20
 gaps outer 20
 
-# INPUT CONFIGURATION
-input "type:keyboard" {
-			xkb_options caps:ctrl_modifier
-}
+# MOUSE
+## Hide mouse after x milliseconds
+seat seat0 hide_cursor 10000
+## Mouse modifier
+floating_modifier $mod normal
+
+## INPUT SETTINGS
+input "type:keyboard" xkb_options caps:ctrl_modifier
+## Mouse options
 input "type:touchpad" {
 			dwt enabled
 			tap enabled
 			middle_emulation enabled
 }
 
-# OUTPUT CONFIGURATION
+# OUTPUT SETTINGS
 output * background $wallpaper fill
 
 # KEY BINDINGS
@@ -94,6 +99,7 @@ output * background $wallpaper fill
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
 bindsym $mod+Space exec $menu
+bindsym $mod+Shift+Space exec $menu -S run
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec $exitSway
 bindsym $mod+Escape exec $exitSway
@@ -168,7 +174,7 @@ bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+w layout toggle split
 bindsym $mod+m fullscreen
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Tab floating toggle
 
 ### Sticky window (when floating)
 bindsym $mod+Shift+s sticky toggle
