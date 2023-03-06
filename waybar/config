@@ -25,7 +25,7 @@
 		"custom/pacman": {
 				"format": "{}  ",
 				"format-alt": "{alt}",
-				"max-length": 1000,
+				"max-length": 100,
 				"return-type": "json",
 				"tooltip": true,
 				"exec": "~/.config/waybar/scripts/pacman_updates",
@@ -33,11 +33,7 @@
 				"on-click-right": "foot -a pkgupdate -e sudo pacman -Syu ; pkill -SIGRTMIN+8 waybar",
 				"signal": 8
 		},
-"cpu": {
-		"interval": 10,
-		"format": "{}% ",
-		"max-length": 10
-},
+
 		"custom/calendar": {
 				"format": "{} ",
 				"format-alt": "{alt}",
@@ -48,7 +44,8 @@
 		"backlight": {
 				"device": "intel_backlight",
 				"format": "{percent}% {icon}",
-				"format-icons": ["",""]
+				"format-icons": ["",""],
+				"on-click": "exec light -S 1"
 		},
 
 		"temperature": {
@@ -60,14 +57,14 @@
 		},
 
 		"network": {
-				"interval": 5,
+				"interval": 10,
 				"interface": "wlan0",
 				"format": "{ifname}",
 				"format-wifi": "Online ",
 				"format-ethernet": "{ipaddr}/{cidr} ",
 				"format-disconnected": "Offline",
 				"tooltip-format": "{ifname} via {gwaddr} ",
-				"tooltip-format-wifi": "ID:\t\t\t{essid}\nStrength:\t\t{signalStrength}% ({signaldBm}dBm)\nInterface:\t\t{ifname}\nFrequency:\t{frequency}MHz\nBytes Down:\t{bandwidthDownBytes}\nBytes Up:\t\t{bandwidthUpBytes}",
+				"tooltip-format-wifi": "ID:\t\t{essid}\nSTR:\t{signalStrength}% ({signaldBm}dBm)\nDEVICE:\t{ifname}\nFREQ:\t{frequency}MHz\nDOWN:\t{bandwidthDownBytes}\nUP:\t\t{bandwidthUpBytes}",
 				"tooltip-format-ethernet": "{ifname} ",
 				"tooltip-format-disconnected": "Disconnected",
 				"max-length": 50,
