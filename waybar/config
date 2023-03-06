@@ -1,6 +1,7 @@
 // -*- mode: js; -*-
 {
 		"layer": "top",
+		"fixed-center": false,
 
 		"modules-left": [
 				"sway/workspaces",
