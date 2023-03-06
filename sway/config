@@ -16,7 +16,7 @@
 
 # SETUP
 ## Set min brightness & restore previous amount
-exec light -N 5 && light -I
+exec light -N 2 && light -I
 
 # PROCESSES
 ## Set color temperature
@@ -66,14 +66,14 @@ set $decVolume pactl set-sink-volume @DEFAULT_SINK@ -5%
 set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 ## Brightness commands
-set $incLight light -A 5 && light -O
-set $decLight light -U 5 && light -O
-set $incKbdLight light -A 5 -s sysfs/leds/smc::kbd_backlight && light -O
-set $decKbdLight light -U 5 -s sysfs/leds/smc::kbd_backlight && light -O
+set $incLight light -A 4 && light -O
+set $decLight light -U 4 && light -O
+set $incKbdLight light -A 4 -s sysfs/leds/smc::kbd_backlight && light -O
+set $decKbdLight light -U 4 -s sysfs/leds/smc::kbd_backlight && light -O
 
 ## Exit commands
 set $exitSway swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
-set $powerOff swaynag -t warning -m 'Shutdown computer?' -B 'Yes' 'halt'
+set $powerOff swaynag -t warning -m 'Shutdown computer?' -B 'Yes' 'sudo halt'
 
 ## Screenshot commands
 set $scrnshotWin exec shotman --capture=window
