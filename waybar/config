@@ -26,10 +26,10 @@
 		"custom/pacman": {
 				"format": "{}  ",
 				"format-alt": "{alt}",
-				"max-length": 100,
+				"max-length": 120,
 				"return-type": "json",
 				"tooltip": true,
-				"exec": "~/.config/waybar/scripts/pacman_updates",
+				"exec": "~/.config/waybar/scripts/pacman_updates.sh",
 				"exec-if": "pgrep checkupdates",
 				"on-click-right": "foot -a pkgupdate -e sudo pacman -Syu ; pkill -SIGRTMIN+8 waybar",
 				"signal": 8
@@ -39,14 +39,14 @@
 				"format": "{} ",
 				"format-alt": "{alt}",
 				"return-type": "json",
-				"exec": "~/.config/waybar/scripts/calendar",
+				"exec": "~/.config/waybar/scripts/calendar.sh",
 		},
 
 		"backlight": {
 				"device": "intel_backlight",
 				"format": "{percent}% {icon}",
 				"format-icons": ["",""],
-				"on-click": "exec light -S 1"
+				"on-click": "~/.config/waybar/scripts/light-toggle.sh"
 		},
 
 		"temperature": {
