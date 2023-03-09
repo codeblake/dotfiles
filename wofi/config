@@ -16,11 +16,14 @@ run-always_parse_args=true
 dynamic_lines=true
 
 # Keys
-key_up=Control_L-p
-key_down=Control_L-n
-key_pgup=Control_L-u
-key_pgdn=Control_L-d
+key_up=Control_L-p,Up
+key_down=Control_L-n,Down
+key_pgup=Control_L-u,Control_L-y
+key_pgdn=Control_L-d,Control_L-v
 key_hide_search=Control_L-h
+key_exit=Escape,Control_L-g
+key_submit=Return,Control_L-m
+key_exapand=Tab
 
 # Frame
 prompt=Search
