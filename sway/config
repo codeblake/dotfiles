@@ -14,6 +14,14 @@
 # REQUIRED PACKAGES:
 # foot wofi waybar light swayidle swaylock shotman slurp gammastep mako autotiling-rs
 
+# VARIABLES
+set $mod Mod4
+set $wallpaper "~/images/earth.jpg"
+set $up p
+set $down n
+set $left b
+set $right f
+
 # SETUP
 ## Set min brightness & restore previous amount
 exec light -N 2 && light -I
@@ -21,7 +29,7 @@ exec light -N 2 && light -I
 # PROCESSES
 ## Set color temperature
 exec gammastep
-bindsym Mod4+l exec pkill gammastep || gammastep
+bindsym $mod+Shift+l exec pkill gammastep || gammastep
 
 ## Enable notifications
 exec mako
@@ -31,29 +39,20 @@ exec autotiling-rs
 
 ## Set idle/lock timer
 exec swayidle -w \
-				 timeout 300 'swaylock -fc 000000'\
+				 timeout 300 'swaylock -f -i $wallpaper'\
 				 timeout 600 'swaymsg "output * power off"' \
 				 resume 'swaymsg "output * power on"' \
-				 before-sleep 'swaylock -f -c 000000'
+				 before-sleep 'swaylock -f -i $wallpaper'
 
 ## Set Swaybar
 bar swaybar_command waybar
 
 ## APP WINDOW
 ## get running app ids: swaymsg -t get_tree | grep app_id
-assign [app_id="FreeTube"] workspace number 3
+assign [app_id="FreeTube"] workspace number 0
 for_window [app_id="iwgtk"] floating enable
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="pkgupdate"] floating enable
-
-# VARIABLES
-## General
-set $mod Mod4
-set $wallpaper "~/images/earth.jpg"
-set $up p
-set $down n
-set $left b
-set $right f
 
 # COMMANDS
 ## Applications
@@ -94,12 +93,16 @@ seat seat0 hide_cursor 10000
 floating_modifier $mod normal
 
 ## INPUT SETTINGS
-input "type:keyboard" xkb_options caps:ctrl_modifier
-## Mouse options
 input "type:touchpad" {
 			dwt enabled
 			tap enabled
 			middle_emulation enabled
+}
+
+input "type:keyboard" {
+			xkb_layout us
+			xkb_variant mac
+			xkb_options caps:ctrl_modifier,
 }
 
 # OUTPUT SETTINGS
@@ -158,7 +161,7 @@ bindsym $mod+6 workspace number 6
 bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
+bindsym $mod+0 workspace number 0
 
 ### Move window to workspace
 bindsym $mod+Shift+1 move container to workspace number 1
@@ -170,7 +173,7 @@ bindsym $mod+Shift+6 move container to workspace number 6
 bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
-bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Shift+0 move container to workspace number 0
 
 ## LAYOUT
 ### Split type
