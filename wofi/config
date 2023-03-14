@@ -22,7 +22,7 @@ key_pgup=Control_L-u,Control_L-y
 key_pgdn=Control_L-d,Control_L-v
 key_hide_search=Control_L-h
 key_exit=Escape,Control_L-g
-key_submit=Return,Control_L-m
+key_submit=Return
 key_exapand=Tab
 
 # Frame
