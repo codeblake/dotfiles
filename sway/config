@@ -16,7 +16,7 @@
 
 # VARIABLES
 set $mod Mod4
-set $wallpaper "~/images/earth.jpg"
+set $wallpaper '$(find ~/cloud/images/wallpaper/ | shuf -n 1)'
 set $up p
 set $down n
 set $left b
@@ -190,7 +190,7 @@ bindsym $mod+m fullscreen
 bindsym $mod+Tab floating toggle
 
 ### Toggle focus between tiling & floating area
-bindsym $mod+Control+Tab focus mode_toggle
+bindsym $mod+Control+minus focus mode_toggle
 
 ### Sticky window (when floating)
 bindsym $mod+Shift+s sticky toggle
