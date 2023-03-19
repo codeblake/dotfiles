@@ -8,6 +8,7 @@ if [ $? -eq 1 ]; then
 fi
 count=$(echo "${output}" | wc -l)
 pkgnames=$(echo "${output}" | awk '{print$1}')
-versions=$(echo "${output}" |  sed -z 's/\n/\\n/g')
+versions=$(echo "${output}" | sed -z 's/\n/\\n/g; s/->/→/g')
+
 [ "${count}" -gt 0 ] && notify-send "Pacman" "${count} package updates available"
 echo "{\"text\":\""${count}"\",\"alt\":\""${pkgnames}"\",\"tooltip\":\""${versions::-2}"\"}"
