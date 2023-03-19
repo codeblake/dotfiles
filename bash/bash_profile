@@ -10,7 +10,10 @@ export PATH="${scripts}:${PATH}"
 export EDITOR=nano
 export VISUAL=nano
 
+# Choose a random wallpaper for the session
+ln -sf $(find ~/Dropbox/images/wallpaper/ | shuf -n 1) /tmp/wallpaper
+
 # Run window manager
 if [ "$(tty)" = "/dev/tty1" ]; then
-		dbus-run-session sway
+    dbus-run-session sway
 fi
