@@ -16,7 +16,7 @@
 
 # VARIABLES
 set $mod Mod4
-set $wallpaper '$(find ~/cloud/images/wallpaper/ | shuf -n 1)'
+set $wallpaper /tmp/wallpaper
 set $up p
 set $down n
 set $left b
@@ -39,10 +39,10 @@ exec autotiling-rs
 
 ## Set idle/lock timer
 exec swayidle -w \
-				 timeout 300 'swaylock -f -i $wallpaper'\
-				 timeout 600 'swaymsg "output * power off"' \
-				 resume 'swaymsg "output * power on"' \
-				 before-sleep 'swaylock -f -i $wallpaper'
+         timeout 300 'swaylock -f -i $wallpaper'\
+         timeout 600 'swaymsg "output * power off"' \
+         resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -i $wallpaper'
 
 ## Set Swaybar
 bar swaybar_command waybar
@@ -94,15 +94,15 @@ floating_modifier $mod normal
 
 ## INPUT SETTINGS
 input "type:touchpad" {
-			dwt enabled
-			tap enabled
-			middle_emulation enabled
+      dwt enabled
+      tap enabled
+      middle_emulation enabled
 }
 
 input "type:keyboard" {
-			xkb_layout us
-			xkb_variant mac
-			xkb_options caps:ctrl_modifier,
+      xkb_layout us
+      xkb_variant mac
+      xkb_options caps:ctrl_modifier,
 }
 
 # OUTPUT SETTINGS
@@ -202,14 +202,14 @@ bindsym $mod+minus scratchpad show
 ### Resizing
 bindsym $mod+x mode "resize"
 mode "resize" {
-		# Resize window
-		bindsym Left resize shrink width 10px
-		bindsym Down resize grow height 10px
-		bindsym Up resize shrink height 10px
-		bindsym Right resize grow width 10px
-		# Exit resizing
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
+    # Resize window
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    # Exit resizing
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 ### Screenshot
