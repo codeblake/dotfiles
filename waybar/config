@@ -16,22 +16,29 @@
 				"temperature",
 				"battery",
 				"custom/calendar",
-				"clock"
+				"clock",
+				"custom/actions"
 		],
 
 		"sway/window": {
 				"max-length": 50
 		},
 
+		"custom/actions": {
+				"format": "Actions",
+				"on-click": "swaymsg reload",
+				"on-click-right": "swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'"
+		},
+
 		"custom/pacman": {
 				"format": "{}  ",
-				"format-alt": "{alt}",
+				"format-alt": "{alt}  ",
 				"max-length": 120,
 				"return-type": "json",
 				"tooltip": true,
 				"exec": "~/.config/waybar/scripts/pacman_updates.sh",
 				"exec-if": "pgrep checkupdates",
-				"on-click-right": "foot -a pkgupdate -e sudo pacman -Syu ; pkill -SIGRTMIN+8 waybar",
+				"on-click-right": "foot -a pkgupdate -e sudo pacman -Syyu ; pkill -SIGRTMIN+8 waybar; ~/.config/waybar/scripts/pacman_updates.sh",
 				"signal": 8
 		},
 
@@ -58,7 +65,7 @@
 		},
 
 		"network": {
-				"interval": 10,
+				"interval": 5,
 				"interface": "wlan0",
 				"format": "{ifname}",
 				"format-wifi": "Online ",
