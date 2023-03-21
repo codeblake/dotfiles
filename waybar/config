@@ -37,7 +37,7 @@
         "return-type": "json",
         "tooltip": true,
         "exec": "waybar-pacman.sh",
-        "exec-if": "which checkupdates && [ ! $(pgrep checkupdates >/dev/null) ]",
+        "exec-if": "[ ! $(pgrep checkupdates >/dev/null) ]",
         "on-click-right": "waybar-pacman-update.sh",
         "signal": 8
     },
