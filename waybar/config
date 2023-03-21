@@ -1,115 +1,115 @@
 // -*- mode: js; -*-
 {
-		"layer": "top",
-		"fixed-center": false,
+    "layer": "top",
+    "fixed-center": false,
 
-		"modules-left": [
-				"sway/workspaces",
-				"sway/mode"
-		],
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode"
+    ],
 
-		"modules-right": [
-				"custom/pacman",
-				"backlight",
-				"pulseaudio",
-				"network",
-				"temperature",
-				"battery",
-				"custom/calendar",
-				"clock",
-				"custom/actions"
-		],
+    "modules-right": [
+        "custom/pacman",
+        "backlight",
+        "pulseaudio",
+        "network",
+        "temperature",
+        "battery",
+        "custom/calendar",
+        "clock",
+        "custom/actions"
+    ],
 
-		"sway/window": {
-				"max-length": 50
-		},
+    "sway/window": {
+        "max-length": 50
+    },
 
-		"custom/actions": {
-				"format": "Actions",
-				"on-click": "swaymsg reload",
-				"on-click-right": "swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'"
-		},
+    "custom/actions": {
+        "format": "Actions",
+        "on-click": "swaymsg reload",
+        "on-click-right": "swaynag-exit.sh"
+    },
 
-		"custom/pacman": {
-				"format": "{}  ",
-				"format-alt": "{alt}  ",
-				"max-length": 120,
-				"return-type": "json",
-				"tooltip": true,
-				"exec": "~/.config/waybar/scripts/pacman_updates.sh",
-				"exec-if": "pgrep checkupdates",
-				"on-click-right": "foot -a pkgupdate -e sudo pacman -Syyu ; pkill -SIGRTMIN+8 waybar; ~/.config/waybar/scripts/pacman_updates.sh",
-				"signal": 8
-		},
+    "custom/pacman": {
+        "format": "{}  ",
+        "format-alt": "{alt}  ",
+        "max-length": 120,
+        "return-type": "json",
+        "tooltip": true,
+        "exec": "waybar-pacman.sh",
+        "exec-if": "which checkupdates && [ ! $(pgrep checkupdates >/dev/null) ]",
+        "on-click-right": "waybar-pacman-update.sh",
+        "signal": 8
+    },
 
-		"custom/calendar": {
-				"format": "{} ",
-				"format-alt": "{alt}",
-				"return-type": "json",
-				"exec": "~/.config/waybar/scripts/calendar.sh",
-		},
+    "custom/calendar": {
+        "format": "{} ",
+        "format-alt": "{alt}",
+        "return-type": "json",
+        "exec": "waybar-date.sh",
+    },
 
-		"backlight": {
-				"device": "intel_backlight",
-				"format": "{percent}% {icon}",
-				"format-icons": ["",""],
-				"on-click": "~/.config/waybar/scripts/light-toggle.sh"
-		},
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{percent}% {icon}",
+        "format-icons": ["",""],
+        "on-click": "toggle-backlight.sh"
+    },
 
-		"temperature": {
-				"thermal-zone": 2,
-				"hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-				"critical-threshold": 80,
-				"format-critical": "{temperatureC}°C ",
-				"format": "{temperatureC}°C "
-		},
+    "temperature": {
+        "thermal-zone": 2,
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        "format-critical": "{temperatureC}°C ",
+        "format": "{temperatureC}°C "
+    },
 
-		"network": {
-				"interval": 5,
-				"interface": "wlan0",
-				"format": "{ifname}",
-				"format-wifi": "Online ",
-				"format-ethernet": "{ipaddr}/{cidr} ",
-				"format-disconnected": "Offline",
-				"tooltip-format": "{ifname} via {gwaddr} ",
-				"tooltip-format-wifi": "ID:\t\t{essid}\nSTR:\t{signalStrength}% ({signaldBm}dBm)\nDEVICE:\t{ifname}\nFREQ:\t{frequency}MHz\nDOWN:\t{bandwidthDownBytes}\nUP:\t\t{bandwidthUpBytes}",
-				"tooltip-format-ethernet": "{ifname} ",
-				"tooltip-format-disconnected": "Disconnected",
-				"max-length": 50,
-				"on-click": "pgrep iwgtk || iwgtk"
-		},
+    "network": {
+        "interval": 5,
+        "interface": "wlan0",
+        "format": "{ifname}",
+        "format-wifi": "Online ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "format-disconnected": "Offline",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "tooltip-format-wifi": "ID:\t\t{essid}\nSTR:\t{signalStrength}% ({signaldBm}dBm)\nDEVICE:\t{ifname}\nFREQ:\t{frequency}MHz\nDOWN:\t{bandwidthDownBytes}\nUP:\t\t{bandwidthUpBytes}",
+        "tooltip-format-ethernet": "{ifname} ",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50,
+        "on-click": "pgrep iwgtk || iwgtk"
+    },
 
-		"pulseaudio": {
-				"format": "{volume}% {icon}",
-				"format-bluetooth": "{volume}% {icon}",
-				"format-muted": "",
-				"format-icons": {
-						"headphone": "",
-						"hands-free": "",
-						"headset": "",
-						"phone": "",
-						"portable": "",
-						"car": "",
-						"default": ["", ""]
-				},
-				"scroll-step": 1,
-				"on-click": "pgrep pavucontrol || pavucontrol",
-				"ignored-sinks": ["Easy Effects Sink"]
-		},
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "scroll-step": 1,
+        "on-click": "pgrep pavucontrol || pavucontrol",
+        "ignored-sinks": ["Easy Effects Sink"]
+    },
 
-		"battery": {
-				"format": "{capacity}% {icon}",
-				"format-icons": ["", "", "", "", ""],
-				"states": {
-						"warning": 30,
-						"critical": 10
-				},
-				"full-at": 56
-		},
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""],
+        "states": {
+            "warning": 30,
+            "critical": 10
+        },
+        "full-at": 56
+    },
 
-		"clock": {
-				"interval": 1,
-				"format": "{:%H:%M} ",
-				"format-alt": "{:%T} "
-		}
+    "clock": {
+        "interval": 1,
+        "format": "{:%H:%M} ",
+        "format-alt": "{:%T} "
+    }
 }
