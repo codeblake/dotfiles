@@ -4,14 +4,10 @@
 [[ -f ~/.bashrc ]] && source ~/.bashrc
 
 # Set environment variables
-wofiscripts="${HOME}/.config/wofi/scripts"
-scripts="${HOME}/repositories/scripts:${wofiscripts}"
+scripts="${HOME}/repositories/dotfiles/scripts/"
 export PATH="${scripts}:${PATH}"
 export EDITOR=nano
 export VISUAL=nano
-
-# Choose a random wallpaper for the session
-ln -sf $(find ~/Dropbox/images/wallpaper/ | shuf -n 1) /tmp/wallpaper
 
 # Run window manager
 if [ "$(tty)" = "/dev/tty1" ]; then
