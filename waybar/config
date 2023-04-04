@@ -104,7 +104,7 @@
             "warning": 30,
             "critical": 10
         },
-        "full-at": 56
+        "full-at": 43
     },
 
     "clock": {
