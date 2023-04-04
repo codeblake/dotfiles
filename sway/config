@@ -12,7 +12,7 @@
 # Get outputs:		swaymsg -t get_outputs
 #
 # REQUIRED PACKAGES:
-# foot wofi waybar light swayidle swaylock shotman slurp gammastep mako autotiling-rs
+# foot wofi waybar light swayidle swaylock shotman slurp gammastep mako auttoiling-rs
 
 # VARIABLES
 set $mod Mod4
@@ -50,7 +50,11 @@ bar swaybar_command waybar
 ## APP WINDOW
 ## get running app ids: swaymsg -t get_tree | grep app_id
 assign [app_id="FreeTube"] workspace number 0
-for_window [app_id="iwgtk"] floating enable
+for_window [app_id="iwgtk"] {
+           floating enable
+           move position center
+           resize set height 50ppt
+}
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="pkgupdate"] floating enable
 
@@ -102,7 +106,8 @@ input "type:touchpad" {
 input "type:keyboard" {
       xkb_layout us
       xkb_variant mac
-      xkb_options caps:ctrl_modifier,
+      xkb_options caps:ctrl_modifier
+      #xkb_options altwin:swap_lalt_lwin
 }
 
 # OUTPUT SETTINGS
