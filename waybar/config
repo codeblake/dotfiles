@@ -47,6 +47,7 @@
         "format-alt": "{alt}",
         "return-type": "json",
         "exec": "waybar-date.sh",
+        "on-click-right": "gsimplecal"
     },
 
     "backlight": {
