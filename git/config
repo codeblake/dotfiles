@@ -1,0 +1,11 @@
+[user]
+	email = codeblake@outlook.com
+	name = codeblake
+[alias]
+	uncommit = reset --soft HEAD^
+	tracked = ls-tree --name-only --full-tree -r HEAD
+	contrib = shortlog --summary --email
+	untrack = rm --cached
+	amend = commit --ammend --no-edit
+[pull]
+	rebase = true
