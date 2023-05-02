@@ -12,8 +12,8 @@ elif [ -z $output ]; then
 fi
 
 count=$(echo "${output}" | wc -l)
-pkgnames=$(echo "${output}" | awk '{print$1}')
+pkgnames=$(echo "${output}" | awk '{print$1}' | sed -z 's/\n/ /g')
 versions=$(echo "${output}" | sed -z 's/\n/\\n/g; s/->/→/g')
 
-[ "${count}" -gt 0 ] && notify-send "Pacman" "${count} package updates available"
+[ "${count}" -gt 0 ] && notify-send -t 10000 "${count} Available Updates" "${pkgnames}"
 echo "{\"text\":"${count}",\"alt\":\""${pkgnames}"\",\"tooltip\":\""${versions::-2}"\"}"
