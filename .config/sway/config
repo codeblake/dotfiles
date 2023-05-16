@@ -15,7 +15,7 @@
 # foot wofi waybar light swayidle swaylock shotman slurp gammastep mako auttoiling-rs
 
 # VARIABLES
-set $mod Mod4
+set $mod Mod1
 set $wallpaper $WALLPAPER
 set $up p
 set $down n
@@ -84,7 +84,8 @@ set $scrnshotSel exec shotman --capture=region
 set $scrnshotAll exec shotman --capture=output
 
 # FRAME
-default_border pixel
+default_border pixel 4
+client.focused "#ffffff" "#ffffff" "#000000"
 gaps inner 30
 gaps horizontal 40
 gaps bottom 60
@@ -114,8 +115,8 @@ input "type:keyboard" {
 # use 'swaymsg -t get_outputs' to get resolutions
 # more info with 'man sway-output'
 output * {
-	background $wallpaper fill #0000ff
-	scale 2
+	background $wallpaper fill
+	scale 1.1
 }
 
 # KEY BINDINGS
