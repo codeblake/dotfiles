@@ -16,7 +16,7 @@
 
 # VARIABLES
 set $mod Mod1
-set $wallpaper $WALLPAPER
+set $wallpaper /tmp/wallpaper
 set $up p
 set $down n
 set $left b
