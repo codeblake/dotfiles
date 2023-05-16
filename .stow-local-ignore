@@ -1,7 +1,12 @@
 # -*- mode: conf-unix; -*-
+
+# Directories
 \.git
-makefile
 scripts
+
+# Files
+makefile
+LICENSE
 
 # Temp files
 .*~$
