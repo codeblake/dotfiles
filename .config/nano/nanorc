@@ -1,3 +1,4 @@
+# -*- mode: conf; -*-
 # Include nano-syntax-highlighting
 include "/usr/share/nano/*.nanorc"
 

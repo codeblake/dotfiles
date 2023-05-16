@@ -1,0 +1,7 @@
+# -*- mode: conf-unix; -*-
+\.git
+makefile
+
+# Temp files
+.*~$
+.*\#.*
