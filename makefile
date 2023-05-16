@@ -1,14 +1,19 @@
-# Link files/directories
+# Add Links
 .PHONY: stow
 stow:
 	stow -vt ~ .
-
-# Dry run
-.PHONY: test
-test:
-	stow -vnt ~ .
 
 # Remove links
 .PHONY: clean
 clean:
 	stow -vDt ~ .
+
+# Test adding links
+.PHONY: test
+test:
+	stow -vnt ~ .
+
+# Test removing links
+.PHONY: test-clean
+test-clean:
+	stow -vnDt ~ .
