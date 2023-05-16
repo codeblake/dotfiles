@@ -6,9 +6,9 @@
 #                     |___/                          |___/
 #
 # Example config:	/etc/sway/config
-# Manual:					man 5 sway
-# Input info:			man 5 sway-input
-# Get inputs:			swaymsg -t get_inputs
+# Manual:		man 5 sway
+# Input info:	        man 5 sway-input
+# Get inputs:		swaymsg -t get_inputs
 # Get outputs:		swaymsg -t get_outputs
 #
 # REQUIRED PACKAGES:
@@ -16,7 +16,7 @@
 
 # VARIABLES
 set $mod Mod4
-set $wallpaper /tmp/wallpaper
+set $wallpaper $WALLPAPER
 set $up p
 set $down n
 set $left b
@@ -111,7 +111,12 @@ input "type:keyboard" {
 }
 
 # OUTPUT SETTINGS
-output * background $wallpaper fill
+# use 'swaymsg -t get_outputs' to get resolutions
+# more info with 'man sway-output'
+output * {
+	background $wallpaper fill #0000ff
+	scale 2
+}
 
 # KEY BINDINGS
 ## Basics
