@@ -1,19 +1,19 @@
 # Add Links
 .PHONY: stow
 stow:
-	stow -vt ~ .
+	@stow -vt ~ .
 
 # Remove links
 .PHONY: clean
 clean:
-	stow -vDt ~ .
+	@stow -vDt ~ .
 
 # Test adding links
 .PHONY: test
 test:
-	stow -vnt ~ .
+	@stow -vnt ~ .
 
 # Test removing links
 .PHONY: test-clean
 test-clean:
-	stow -vnDt ~ .
+	@stow -vnDt ~ .
