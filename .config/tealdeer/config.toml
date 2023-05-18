@@ -1,0 +1,24 @@
+[display]
+compact = true
+use_pager = true
+
+[style.description]
+foreground = "purple"
+bold = true
+
+[style.example_text]
+foreground = "green"
+
+[style.command_name]
+foreground = "blue"
+
+[style.example_code]
+foreground = "yellow"
+
+[style.example_variable]
+foreground = "white"
+italic = true
+
+[updates]
+auto_update = true
+
