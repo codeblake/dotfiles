@@ -67,11 +67,10 @@
 
     "network": {
         "interval": 5,
-        "interface": "wlan0",
         "format": "{ifname}",
         "format-wifi": "Online ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "format-disconnected": "Offline",
+        "format-ethernet": "Online ",
+        "format-disconnected": "{ifname} Disconnected",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "tooltip-format-wifi": "ID:\t\t{essid}\nSTR:\t{signalStrength}% ({signaldBm}dBm)\nDEVICE:\t{ifname}\nFREQ:\t{frequency}MHz\nDOWN:\t{bandwidthDownBytes}\nUP:\t\t{bandwidthUpBytes}",
         "tooltip-format-ethernet": "{ifname} ",
