@@ -30,12 +30,13 @@ branch() {
 export PS1="[${user}@${host} in ${dir}\$(branch)] "
 
 # Aliases
-command -v exa &> /dev/null && alias ls="exa --group-directories-first"
-command -v figlet &> /dev/null && alias ascii="figlet -f standard"
-command -v batman &> /dev/null && alias man="batman"
-command -v zathura &> /dev/null && alias pdf="zathura"
-command -v sdcv &> /dev/null && alias dict="sdcv"
-command -v trizen &> /dev/null && alias aur="trizen"
+command -v exa &>/dev/null && alias ls="exa --group-directories-first"
+command -v figlet &>/dev/null && alias ascii="figlet -f standard"
+command -v batman &>/dev/null && alias man="batman"
+command -v batdiff &>/dev/null && alias diff="batdiff"
+command -v zathura &>/dev/null && alias pdf="zathura"
+command -v sdcv &>/dev/null && alias dict="sdcv"
+command -v trizen &>/dev/null && alias aur="trizen"
 
 alias gs="git status"
 alias gl="git log --oneline --graph"
