@@ -5,14 +5,27 @@
 # |____/ \_/\_/ \__,_|\__, |  \____\___/|_| |_|_| |_|\__, |
 #                     |___/                          |___/
 #
+# INFO
 # Example config:	/etc/sway/config
 # Manual:		man 5 sway
 # Input info:	        man 5 sway-input
+# Output info:          man sway-output
 # Get inputs:		swaymsg -t get_inputs
 # Get outputs:		swaymsg -t get_outputs
 #
-# REQUIRED PACKAGES:
-# foot wofi waybar light swayidle swaylock shotman slurp gammastep mako auttoiling-rs
+# REQUIREMENTS
+# foot
+# brightnessctl
+# wofi
+# waybar
+# swayidle
+# swaylock
+# shotman
+# gammastep
+# mako
+# autotiling-rs
+# pipewire
+# wireplumber
 
 # VARIABLES
 set $mod Mod1
@@ -22,11 +35,22 @@ set $down n
 set $left b
 set $right f
 
+# TESTING
+# Grep (requires skim & ripgrep)
+bindsym $mod+g exec foot sk --ansi -i -c 'rg --color=always --line-number "{}"'
+## Change wallpaper
+bindsym $mod+w exec imv ~/images/wallpaper/
+
 # SETUP
-## Set min brightness & restore previous amount
-exec light -N 2 && light -I
+## restore previous brightness settings
+exec brightnessctl --restore --device=*
 
 # PROCESSES
+## Audio
+exec pipewire
+exec pipewire-pulse
+exec wireplumber
+
 ## Set color temperature
 exec gammastep
 bindsym $mod+Shift+l exec pkill gammastep || gammastep
@@ -38,25 +62,28 @@ exec mako
 exec autotiling-rs
 
 ## Set idle/lock timer
-exec swayidle -w \
-         timeout 300 'swaylock -f -i $wallpaper'\
-         timeout 600 'swaymsg "output * power off"' \
-         resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -i $wallpaper'
+#exec swayidle -w \
+#         timeout 300 "swaylock -f -i ${wallpaper}"\
+#         timeout 600 'swaymsg "output * power off"' \
+#         resume 'swaymsg "output * power on"' \
+#	 before-sleep "swaylock -f -i ${wallpaper}"
 
 ## Set Swaybar
-bar swaybar_command waybar
+bar {
+	swaybar_command waybar
+}
 
-## APP WINDOW
-## get running app ids: swaymsg -t get_tree | grep app_id
-assign [app_id="FreeTube"] workspace number 0
+## Apps
+## Get running app ids with: swaymsg -t get_tree | grep app_id
 for_window [app_id="iwgtk"] {
            floating enable
            move position center
            resize set height 50ppt
 }
 for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="pkgupdate"] floating enable
+for_window [app_id="update"] floating enable
+for_window [class="REAPER"] floating enable
+assign [app_id="FreeTube"] workspace number 0
 
 # COMMANDS
 ## Applications
@@ -69,10 +96,11 @@ set $decVolume pactl set-sink-volume @DEFAULT_SINK@ -5%
 set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 ## Brightness commands
-set $incLight light -A 4 && light -O
-set $decLight light -U 4 && light -O
-set $incKbdLight light -A 4 -s sysfs/leds/smc::kbd_backlight && light -O
-set $decKbdLight light -U 4 -s sysfs/leds/smc::kbd_backlight && light -O
+set $incLight brightnessctl -s set +10%
+set $decLight brightnessctl -s set -10%
+### Laptop keyboard
+set $incKbdLight brightnessctl -sd smc::kbd_backlight set +10%
+set $decKbdLight brightnessctl -sd smc::kbd_backlight set -10%
 
 ## Exit commands
 set $exitSway swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
@@ -84,8 +112,9 @@ set $scrnshotSel exec shotman --capture=region
 set $scrnshotAll exec shotman --capture=output
 
 # FRAME
-default_border pixel 4
-client.focused "#ffffff" "#ffffff" "#000000"
+## Gaps
+default_border pixel 2
+client.focused "#ffffff" "#ffffff" "#000000" "#ff00ff"
 gaps inner 30
 gaps horizontal 40
 gaps bottom 60
@@ -93,7 +122,10 @@ gaps top 20
 
 # MOUSE
 ## Hide mouse after x milliseconds
-seat seat0 hide_cursor 10000
+seat "seat0" {
+	hide_cursor when-typing enable
+}
+
 ## Mouse modifier
 floating_modifier $mod normal
 
@@ -108,12 +140,9 @@ input "type:keyboard" {
       xkb_layout us
       xkb_variant mac
       xkb_options caps:ctrl_modifier
-      #xkb_options altwin:swap_lalt_lwin
 }
 
 # OUTPUT SETTINGS
-# use 'swaymsg -t get_outputs' to get resolutions
-# more info with 'man sway-output'
 output * {
 	background $wallpaper fill
 	scale 1.1
@@ -128,6 +157,7 @@ bindsym $mod+Shift+Space exec $menu -S run
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec $exitSway
 bindsym $mod+Escape exec $exitSway
+bindsym $mod+Ctrl+Delete exec swaymsg exit
 
 ## Screen Brightness
 bindsym XF86MonBrightnessUp   exec $incLight
@@ -192,9 +222,9 @@ bindsym $mod+h splith
 bindsym $mod+v splitv
 
 ### Layout type
-bindsym $mod+s layout stacking
+bindsym $mod+k layout stacking
 bindsym $mod+t layout tabbed
-bindsym $mod+w layout toggle split
+bindsym $mod+s layout toggle split
 bindsym $mod+m fullscreen
 
 ### Floating
@@ -225,5 +255,5 @@ mode "resize" {
 
 ### Screenshot
 bindsym $mod+y       exec $scrnshotWin
-bindsym $mod+r			 exec $scrnshotSel
+bindsym $mod+r	     exec $scrnshotSel
 bindsym $mod+Ctrl+y  exec $scrnshotAll

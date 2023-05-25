@@ -38,7 +38,7 @@
         "tooltip": true,
         "exec": "waybar-pacman.sh",
         "exec-if": "[ ! $(pgrep checkupdates >/dev/null) ]",
-        "on-click-right": "waybar-pacman-update.sh",
+        "on-click-right": "foot -a update sudo pacman -Syu  && waybar-pacman.sh",
         "signal": 8
     },
 
