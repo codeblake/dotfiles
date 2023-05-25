@@ -1,0 +1,79 @@
+#
+# Config for imv
+#
+[options]
+# Suppress built-in key bindings, and specify them explicitly in this
+# config file.
+suppress_default_binds = true
+
+[aliases]
+# Define aliases here. Any arguments passed to an alias are appended to the
+# command.
+set_wallpaper = exec cp $imv_current_file /tmp/wallpaper
+pan_up = pan 0 -50
+pan_down = pan 0 50
+pan_left = pan -50 0
+pan_right = pan 50 0
+zoom_in = zoom 5
+zoom_out = zoom -5
+
+[binds]
+# Navigation
+## Arrow keys
+<Up> = prev
+<Down> = next
+<Left> = prev
+<Right> = next
+## Brackets
+<bracketleft> = prev
+<bracketright> = next
+## Emacs-like
+n = next
+p = prev
+
+## Go to first/last image
+gg = goto 1
+<Shift+G> = goto -1
+
+# Pan
+c = center
+## Emacs-like
+<Ctrl+p> = pan_up
+<Ctrl+n> = pan_down
+<Ctrl+b> = pan_left
+<Ctrl+f> = pan_right
+## Vim-like
+j = pan_up
+k = pan_down
+l = pan_left
+<semicolon> = pan_right
+
+# Rotate
+<Ctrl+r> = rotate by 90
+
+# Zoom
+<equal> = zoom_in
+<minus> = zoom_out
+0 = reset
+i = zoom_in
+o = zoom_out
+
+# Commands
+w = set_wallpaper
+f = fullscreen
+d = overlay
+q = quit
+x = close
+s = scaling next
+<Shift+S> = upscaling next
+a = zoom actual
+r = reset
+
+# Gif playback
+<period> = next_frame
+<space> = toggle_playing
+
+# Slideshow
+t = slideshow 5
+<Shift+T> = slideshow -5
+
