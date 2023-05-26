@@ -1,0 +1,21 @@
+#!/bin/sh
+if [[ $UID -ne 0 ]]; then
+	echo lsv requires root priviledges!
+	exit
+fi
+
+list_services(){
+	sdir=/run/runit/service
+	services=$(ls ${sdir})
+	printf "Service\tStat\tPID\n"
+	for service in ${services}; do
+		sname=$(basename ${service})
+		[[ $sname =~ agetty-tty* ]] && continue;
+		printf "%s\t%s\t%s\n" \
+			${sname} \
+			$(cat ${sdir}/${service}/supervise/stat) \
+			$(cat ${sdir}/${service}/supervise/pid)
+	done
+}
+
+list_services | column -t
