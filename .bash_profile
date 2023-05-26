@@ -6,15 +6,13 @@
 # Set environment variables
 scripts="${HOME}/repositories/dotfiles/scripts/"
 export PATH="${scripts}:${PATH}"
-export EDITOR=nano
-export VISUAL=nano
+export EDITOR=vim
+export VISUAL=$EDITOR
 
-## A precaution to set the default wallpaper if non set yet
-#[[ -f /tmp/wallpaper ]] \
-#	|| cp "/usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png" \ 
-#	      "/tmp/wallpaper"
+# Set random wallpaper
+ln -sf $(find ~/images/wallpaper -type f | shuf -n 1) /tmp/wallpaper
 
-# Run window manager on login
+# Run sway on login
 if [ "$(tty)" = "/dev/tty1" ]; then
     dbus-run-session sway
 fi
