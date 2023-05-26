@@ -9,7 +9,7 @@ suppress_default_binds = true
 [aliases]
 # Define aliases here. Any arguments passed to an alias are appended to the
 # command.
-set_wallpaper = exec cp $imv_current_file /tmp/wallpaper
+set_wallpaper = exec ln -fs $imv_current_file /tmp/wallpaper
 pan_up = pan 0 -50
 pan_down = pan 0 50
 pan_left = pan -50 0
