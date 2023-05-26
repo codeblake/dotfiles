@@ -1,17 +1,18 @@
+# -*- mode: conf-space; -*-
+# ====================================================================
 #  ____                        ____             __ _
 # / ___|_      ____ _ _   _   / ___|___  _ __  / _(_) __ _
 # \___ \ \ /\ / / _` | | | | | |   / _ \| '_ \| |_| |/ _` |
 #  ___) \ V  V / (_| | |_| | | |__| (_) | | | |  _| | (_| |
 # |____/ \_/\_/ \__,_|\__, |  \____\___/|_| |_|_| |_|\__, |
 #                     |___/                          |___/
-#
 # INFO
-# Example config:	/etc/sway/config
-# Manual:		man 5 sway
-# Input info:	        man 5 sway-input
-# Output info:          man sway-output
-# Get inputs:		swaymsg -t get_inputs
-# Get outputs:		swaymsg -t get_outputs
+# Defaults:           /etc/sway/config
+# Manual:             man 5 sway
+# Input info:         man 5 sway-input
+# Output info:        man sway-output
+# Get inputs:         swaymsg -t get_inputs
+# Get outputs:        swaymsg -t get_outputs
 #
 # REQUIREMENTS
 # foot
@@ -26,54 +27,67 @@
 # autotiling-rs
 # pipewire
 # wireplumber
+# imv
 
 # VARIABLES
-set $mod Mod1
+# ====================================================================
 set $wallpaper /tmp/wallpaper
+## Keys
+set $mod Mod4
 set $up p
 set $down n
 set $left b
 set $right f
+## Applications
+set $term foot
+set $menu wofi
 
-# TESTING
-# Grep (requires skim & ripgrep)
-bindsym $mod+g exec foot sk --ansi -i -c 'rg --color=always --line-number "{}"'
-## Change wallpaper
-bindsym $mod+w exec imv ~/images/wallpaper/
+# COMMANDS
+# ====================================================================
+## Screen
+set $screen_lock exec swaylock -Fe -i $wallpaper
+set $screen_brightness_up exec brightnessctl -s set +10%
+set $screen_brightness_down exec brightnessctl -s set 10%-
+set $screen_temperature exec pkill gammastep || gammastep
+set $set_wallpaper exec imv ~/images/wallpaper/
+## Screenshot
+set $screenshot_window exec shotman --capture=window
+set $screenshot_region exec shotman --capture=region
+set $screenshot_desktop exec shotman --capture=output
+## Volume
+set $volume_up exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+set $volume_down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+set $volume_mute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+## Keyboard
+set $kbd_backlight_up exec brightnessctl -sd smc::kbd_backlight set +10%
+set $kbd_backlight_down exec brightnessctl -sd smc::kbd_backlight set 10%-
+## System
+set $exit exec swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
+set $exit_now exec swaymsg exit
+set $shutdown exec swaynag -t warning -m 'Shutdown computer?' -B 'Yes' 'sudo halt'
 
-# SETUP
-## restore previous brightness settings
+# SYSTEM
+# ====================================================================
+## Restore brightness
 exec brightnessctl --restore --device=*
-
-# PROCESSES
-## Audio
+## Processes
 exec pipewire
 exec pipewire-pulse
 exec wireplumber
-
-## Set color temperature
-exec gammastep
-bindsym $mod+Shift+l exec pkill gammastep || gammastep
-
-## Enable notifications
 exec mako
-
-## Enable auto tiling
 exec autotiling-rs
-
-## Set idle/lock timer
-#exec swayidle -w \
-#         timeout 300 "swaylock -f -i ${wallpaper}"\
-#         timeout 600 'swaymsg "output * power off"' \
-#         resume 'swaymsg "output * power on"' \
-#	 before-sleep "swaylock -f -i ${wallpaper}"
-
-## Set Swaybar
+exec gammastep
+exec swayidle -w \
+     timeout 600 swaylock -Fe -i $wallpaper \
+     timeout 600 swaymsg "output * power off" \
+     resume swaymsg "output * power on"
+## Swaybar
 bar {
-	swaybar_command waybar
+  swaybar_command waybar
 }
 
-## Apps
+# APPS
+# ====================================================================
 ## Get running app ids with: swaymsg -t get_tree | grep app_id
 for_window [app_id="iwgtk"] {
            floating enable
@@ -85,34 +99,8 @@ for_window [app_id="update"] floating enable
 for_window [class="REAPER"] floating enable
 assign [app_id="FreeTube"] workspace number 0
 
-# COMMANDS
-## Applications
-set $term foot
-set $menu wofi
-
-## Volume commands
-set $incVolume pactl set-sink-volume @DEFAULT_SINK@ +5%
-set $decVolume pactl set-sink-volume @DEFAULT_SINK@ -5%
-set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-## Brightness commands
-set $incLight brightnessctl -s set +10%
-set $decLight brightnessctl -s set -10%
-### Laptop keyboard
-set $incKbdLight brightnessctl -sd smc::kbd_backlight set +10%
-set $decKbdLight brightnessctl -sd smc::kbd_backlight set -10%
-
-## Exit commands
-set $exitSway swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
-set $powerOff swaynag -t warning -m 'Shutdown computer?' -B 'Yes' 'sudo halt'
-
-## Screenshot commands
-set $scrnshotWin exec shotman --capture=window
-set $scrnshotSel exec shotman --capture=region
-set $scrnshotAll exec shotman --capture=output
-
-# FRAME
-## Gaps
+## Frame
+# ====================================================================
 default_border pixel 2
 client.focused "#ffffff" "#ffffff" "#000000" "#ff00ff"
 gaps inner 30
@@ -120,79 +108,81 @@ gaps horizontal 40
 gaps bottom 60
 gaps top 20
 
-# MOUSE
-## Hide mouse after x milliseconds
-seat "seat0" {
-	hide_cursor when-typing enable
-}
-
-## Mouse modifier
+# INPUTS & OUTPUTS
+# ====================================================================
 floating_modifier $mod normal
-
-## INPUT SETTINGS
+## Mouse
+seat "seat0" {
+      hide_cursor when-typing enable
+}
+## Touchpad
 input "type:touchpad" {
       dwt enabled
       tap enabled
       middle_emulation enabled
 }
-
+## Keyboard
 input "type:keyboard" {
       xkb_layout us
       xkb_variant mac
       xkb_options caps:ctrl_modifier
 }
-
-# OUTPUT SETTINGS
-output * {
-	background $wallpaper fill
-	scale 1.1
+## Screen
+output * background $wallpaper fill
+output eDP-1 {
+       mode 2880x1800@59.990Hz
+       scale 2
+}
+output DP-3 {
+       mode 3840x2160@60.000Hz
+       scale 2
 }
 
 # KEY BINDINGS
+# ====================================================================
 ## Basics
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
 bindsym $mod+Space exec $menu
 bindsym $mod+Shift+Space exec $menu -S run
+## Sway
 bindsym $mod+Shift+r reload
-bindsym $mod+Shift+e exec $exitSway
-bindsym $mod+Escape exec $exitSway
-bindsym $mod+Ctrl+Delete exec swaymsg exit
-
+bindsym $mod+Shift+e $exit
+bindsym $mod+Escape $exit
+bindsym $mod+Ctrl+Delete $exit_now
+## Screen
+bindsym $mod+l $screen_lock
+bindsym $mod+i $screen_temperature
+bindsym $mod+w $set_wallpaper
+## Screenshot
+bindsym $mod+y $screenshot_window
+bindsym $mod+r $screenshot_region
+bindsym $mod+Ctrl+y $screenshot_desktop
 ## Screen Brightness
-bindsym XF86MonBrightnessUp   exec $incLight
-bindsym XF86MonBrightnessDown exec $decLight
-
+bindsym XF86MonBrightnessUp $screen_brightness_up
+bindsym XF86MonBrightnessDown $screen_brightness_down
 ## Keyboard Brightness
-bindsym XF86KbdBrightnessUp   exec $incKbdLight
-bindsym XF86KbdBrightnessDown exec $decKbdLight
-
+bindsym XF86KbdBrightnessUp $kbd_backlight_up
+bindsym XF86KbdBrightnessDown $kbd_backlight_down
 ## Volume
-bindsym XF86AudioMute         exec mute
-bindsym XF86AudioRaiseVolume  exec $incVolume
-bindsym XF86AudioLowerVolume  exec $decVolume
-
+bindsym XF86AudioMute $volume_mute
+bindsym XF86AudioRaiseVolume $volume_up
+bindsym XF86AudioLowerVolume $volume_down
 ## Power Button
-bindsym XF86PowerOff exec $powerOff
-
-## WINDOW
-### Select a window
+bindsym XF86PowerOff $shutdown
+## Select a window
 bindsym $mod+$up focus up
 bindsym $mod+$down focus down
 bindsym $mod+$left focus left
 bindsym $mod+$right focus right
-
-### Select multiple windows
+## Select multiple windows
 bindsym $mod+a focus parent
-
-### Shift window in current workspce
+## Shift window in current workspce
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$right move right
-
-## WORKSPACE
-### Select workspace
+## Select workspace
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -203,8 +193,7 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 0
-
-### Move window to workspace
+## Move window to workspace
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3
@@ -215,32 +204,24 @@ bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 0
-
-## LAYOUT
-### Split type
+## Split type
 bindsym $mod+h splith
 bindsym $mod+v splitv
-
-### Layout type
+## Layout type
 bindsym $mod+k layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+s layout toggle split
 bindsym $mod+m fullscreen
-
-### Floating
+## Floating
 bindsym $mod+Tab floating toggle
-
-### Toggle focus between tiling & floating area
+## Toggle focus between tiling & floating area
 bindsym $mod+Control+minus focus mode_toggle
-
-### Sticky window (when floating)
+## Sticky window (when floating)
 bindsym $mod+Shift+s sticky toggle
-
-### Scratchpad:
+## Scratchpad:
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
-
-### Resizing
+## Resize
 bindsym $mod+x mode "resize"
 mode "resize" {
     # Resize window
@@ -252,8 +233,3 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
-### Screenshot
-bindsym $mod+y       exec $scrnshotWin
-bindsym $mod+r	     exec $scrnshotSel
-bindsym $mod+Ctrl+y  exec $scrnshotAll
