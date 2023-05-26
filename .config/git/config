@@ -9,4 +9,4 @@
   amend = commit --ammend --no-edit
   commits = log origin.. --oneline
 [pull]
-  rebase = false
+  rebase = true
