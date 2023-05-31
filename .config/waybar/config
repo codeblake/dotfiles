@@ -37,7 +37,7 @@
         "return-type": "json",
         "tooltip": true,
         "exec": "waybar-pacman.sh",
-        "exec-if": "[ ! $(pgrep checkupdates >/dev/null) ]",
+        "exec-if": "[ ! $(pgrep checkupdates) ]",
         "on-click-right": "foot -a update sudo pacman -Syu  && waybar-pacman.sh",
         "signal": 8
     },
