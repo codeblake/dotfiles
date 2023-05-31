@@ -46,8 +46,8 @@ set $menu wofi
 # ====================================================================
 ## Screen
 set $screen_lock exec swaylock -Fe -i $wallpaper
-set $screen_brightness_up exec brightnessctl -s set +10%
-set $screen_brightness_down exec brightnessctl -s set 10%-
+set $screen_brightness_up exec brightnessctl -sn set +5%
+set $screen_brightness_down exec brightnessctl -sn set 5%-
 set $screen_temperature exec pkill gammastep || gammastep
 set $set_wallpaper exec imv ~/images/wallpaper/
 ## Screenshot
@@ -62,9 +62,9 @@ set $volume_mute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 set $kbd_backlight_up exec brightnessctl -sd smc::kbd_backlight set +10%
 set $kbd_backlight_down exec brightnessctl -sd smc::kbd_backlight set 10%-
 ## System
-set $exit exec swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
+set $exit exec swaynag -t warning -m 'Are you sure you want to exit Sway?' -B 'Exit Sway' 'swaymsg exit'
 set $exit_now exec swaymsg exit
-set $shutdown exec swaynag -t warning -m 'Shutdown computer?' -B 'Yes' 'sudo halt'
+set $shutdown exec swaynag -t warning -m 'Are you sure you want to shutdown the computer?' -B 'Shutdown' 'sudo halt'
 
 # SYSTEM
 # ====================================================================

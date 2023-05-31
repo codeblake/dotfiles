@@ -26,8 +26,8 @@
 
     "custom/actions": {
         "format": "Actions",
-        "on-click": "swaymsg reload",
-        "on-click-right": "swaynag-exit.sh"
+        "on-click": "swaynag -t warning -m 'Shutdown system?' -B 'Yes' 'sudo halt'",
+        "on-click-right": "swaynag -t warning -m 'Reboot system?' -B 'Yes' 'sudo reboot'"
     },
 
     "custom/pacman": {
