@@ -1,0 +1,20 @@
+# -*- mode: conf-space; -*-
+# more info: 'man zathurarc'
+
+map n scroll down
+map p scroll up
+map f scroll right
+map b scroll left
+
+map < goto top
+map > goto bottom
+
+map <C-v> navigate next
+map <M-v> navigate previous
+
+map w adjust_window width
+map h adjust_window best-fit
+
+map = zoom in
+map - zoom out
+map 0 zoom reset
